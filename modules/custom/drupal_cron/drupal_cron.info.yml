@@ -1,0 +1,4 @@
+name: Drupal Custom Cron Job
+description: Adding/Updating node to drupal DB from API
+type: module
+core: 8.x
