@@ -15,16 +15,19 @@ use Drupal\node\Entity\Node;
  * Adds body classes if certain regions have content.
  */
 function bartik_preprocess_html(&$variables) {
-  //checking the code for 
-  /*$data = file_get_contents('http://delivery.chalk247.com/team_list/NFL.JSON?api_key=74db8efa2a6db279393b433d97c2bc843f8e32b0');
-  $cat_facts = json_decode($data, TRUE);
-  print_r($cat_fact[data][team]);
+
+$data = file_get_contents('http://delivery.chalk247.com/team_list/NFL.JSON?api_key=74db8efa2a6db279393b433d97c2bc843f8e32b0');
+    $cat_facts = json_decode($data, TRUE);
   foreach ($cat_facts as $cat_fact) {
-    //$number = range(0,count($cat_fact));
-    //print $cat_fact;
-    print_r($cat_fact[data][team][0][conference]);
+    for ($x = 0; $x <= 100; $x+=1) {
+        $node = Node::load(1601);
+        $node->field_id = [900000];
+        //$node->field_conference1 = [$cat_fact[data][team][$x][conference]];
+        $node->save();
+    }
+  }
   
-  }*/
+ 
   // Add information about the number of sidebars.
   if (!empty($variables['page']['sidebar_first']) && !empty($variables['page']['sidebar_second'])) {
     $variables['attributes']['class'][] = 'layout-two-sidebars';

@@ -5,7 +5,7 @@ use Drupal\node\Entity\Node;
 
 Class CustomnodeCreation extends Controllerbase{
 	public function content(){
-		print_r($cat_fact[data][team][1]);
+		//print_r($cat_fact[data][team][1]);
 	 $node = Node::create(['type' => 'team']);
 	 $node->set('title','test node');
 	 $node->set('field_id',$cat_fact[data][team][0][id]);
