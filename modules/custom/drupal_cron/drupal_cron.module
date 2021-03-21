@@ -6,38 +6,26 @@ use Drupal\node\Entity\Node;
 **/
 
 function drupal_cron_cron() {
-	$slogan = \Drupal::service('config.factory')->getEditable('system.site')->get('slogan');
-	if (is_numeric($slogan)){
-		$slogan = $slogan+1;
-		\Drupal::service('config.factory')->getEditable('system.site')->set(
-			'slogan',$slogan)-> save();
-	}
-	else
-	{
-		\Drupal::service('config.factory')->getEditable('system.site')->set(
-			'slogan',0)-> save();
-	}
 	$data = file_get_contents('http://delivery.chalk247.com/team_list/NFL.JSON?api_key=74db8efa2a6db279393b433d97c2bc843f8e32b0');
   	$cat_facts = json_decode($data, TRUE);
-  
-  foreach ($cat_facts as $cat_fact) {
-    //$number = range(0,count($cat_fact));
-    //print $cat_fact;*/
-    //print_r($cat_fact[data][team]['name']);
-  //exit();
-for ($x = 0; $x <= count($cat_fact); $x+=1){
-	if ('field_id' != $cat_fact[data][team][$x][id]){
-  $node = Node::create(array(
-  	'type' => 'team',
-  	'title' => 'test12345678',
-  	'field_id' => $cat_fact[data][team][$x][id],
-  	'field_nickname' => $cat_fact[data][team][$x][division],
-  	'field_name' => $cat_fact[data][team][$x][name],
-  	'field_display_name' => $cat_fact[data][team][$x][display_name],
-  	'field_division' => $cat_fact[data][team][$x][division],
-  	//'field_conference',$cat_fact[data][team][$x][conference],
-	 'status' => 1,));
-	 $node->save();
-	}}
+  foreach ($cat_facts as $cat_fact) 
+  {
+  	//count($cat_fact)
+   for ($x = 0; $x <= 100; $x+=1)
+   {
+	  	$node = Node::create(array(
+	  	'type' => 'team',
+	  	'title' => $cat_fact[data][team][$x][display_name],
+	  	'field_id' => $cat_fact[data][team][$x][id],
+	  	'field_nickname' => $cat_fact[data][team][$x][division],
+	  	'field_name' => $cat_fact[data][team][$x][name],
+	  	'field_display_name' => $cat_fact[data][team][$x][display_name],
+	  	'field_division' => $cat_fact[data][team][$x][division],
+	  	'field_conference' => $cat_fact[data][team][$x][conference],
+	  	//'field_conference1' => $cat_fact[data][team][$x][conference],
+		 'status' => 1,));
+		 $node->save();
+	}
   }
 }							
+
